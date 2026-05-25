@@ -1,0 +1,32 @@
+{
+  "name": "hush-cafe-fullstack",
+  "version": "1.0.0",
+  "description": "Complete full-stack website for Hush Cafe - A quiet luxury coffee shop",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && live-server --port=5500\"",
+    "install-all": "npm install && cd backend && npm install",
+    "setup": "cd backend && npm run setup",
+    "build": "echo \"No build step required\"",
+    "deploy": "npm run build && echo \"Ready for deployment\""
+  },
+  "keywords": [
+    "cafe",
+    "restaurant",
+    "fullstack",
+    "nodejs",
+    "express",
+    "sqlite",
+    "html-css-javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
