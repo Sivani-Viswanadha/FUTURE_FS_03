@@ -8,19 +8,11 @@ const app = express();
 
 app.use(
   cors({
-    origin:
-      "https://future-fs-03-1796.vercel.app",
-    methods: [
-      "GET",
-      "POST",
-      "OPTIONS",
-    ],
+    origin: process.env.CLIENT_URL || true,
+    methods: ["GET", "POST", "OPTIONS"],
   })
 );
 
-app.use(express.json());
-
-app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
