@@ -6,6 +6,20 @@ const db = require("./database");
 
 const app = express();
 
+app.use(
+  cors({
+    origin:
+      "https://future-fs-03-1796.vercel.app/index.html",
+    methods: [
+      "GET",
+      "POST",
+      "OPTIONS",
+    ],
+  })
+);
+
+app.use(express.json());
+
 app.use(cors());
 app.use(express.json());
 
