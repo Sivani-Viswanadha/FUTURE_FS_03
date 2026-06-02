@@ -9,7 +9,7 @@ const app = express();
 app.use(
   cors({
     origin:
-      "https://future-fs-03-1796.vercel.app/index.html",
+      "https://future-fs-03-1796.vercel.app",
     methods: [
       "GET",
       "POST",
