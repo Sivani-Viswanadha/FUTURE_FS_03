@@ -18,20 +18,18 @@ const app =
 
 app.use(
   cors({
-    origin: [
-      "https://future-fs-03-1796.vercel.app",
-      "http://localhost:3000",
-      "http://localhost:5500",
-      "http://127.0.0.1:5500"
-    ],
+    origin: true,
     methods: [
       "GET",
       "POST",
       "OPTIONS"
-    ],
-    credentials: true
+    ]
   })
 );
+
+/* ==========================
+   MIDDLEWARE
+========================== */
 
 app.use(express.json());
 
@@ -62,8 +60,26 @@ app.post(
       message
     } = req.body;
 
+    // Validation
+    if (
+      !name ||
+      !email ||
+      !message
+    ) {
+      return res
+        .status(400)
+        .json({
+          error:
+            "Please fill all fields"
+        });
+    }
+
     const query =
-      "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)";
+      `
+      INSERT INTO contacts
+      (name, email, message)
+      VALUES (?, ?, ?)
+    `;
 
     db.run(
       query,
@@ -77,6 +93,7 @@ app.post(
       ) {
         if (err) {
           console.error(
+            "Contact DB Error:",
             err
           );
 
@@ -100,22 +117,6 @@ app.post(
 );
 
 /* ==========================
-   RESERVATION TABLE
-========================== */
-
-db.run(`
-CREATE TABLE IF NOT EXISTS reservations (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  phone TEXT NOT NULL,
-  date TEXT NOT NULL,
-  time TEXT NOT NULL,
-  guests INTEGER NOT NULL
-)
-`);
-
-/* ==========================
    RESERVATION API
 ========================== */
 
@@ -132,9 +133,34 @@ app.post(
     } =
       req.body;
 
-    const query = `
+    // Validation
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !date ||
+      !time ||
+      !guests
+    ) {
+      return res
+        .status(400)
+        .json({
+          error:
+            "Please fill all fields"
+        });
+    }
+
+    const query =
+      `
       INSERT INTO reservations
-      (name, email, phone, date, time, guests)
+      (
+        name,
+        email,
+        phone,
+        date,
+        time,
+        guests
+      )
       VALUES (?, ?, ?, ?, ?, ?)
     `;
 
@@ -153,6 +179,7 @@ app.post(
       ) {
         if (err) {
           console.error(
+            "Reservation DB Error:",
             err
           );
 
