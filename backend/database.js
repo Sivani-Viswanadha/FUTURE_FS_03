@@ -1,21 +1,40 @@
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
+const sqlite3 =
+  require("sqlite3").verbose();
 
-// database location
-const dbPath = path.join(__dirname, "../data/cafe.db");
+const path =
+  require("path");
 
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.log(
-      "Database connection failed:",
-      err.message
-    );
-  } else {
-    console.log("Connected to database");
-  }
-});
+/* ==========================
+   DATABASE LOCATION
+========================== */
 
-// Create table automatically
+const dbPath =
+  path.join(
+    __dirname,
+    "cafe.db"
+  );
+
+const db =
+  new sqlite3.Database(
+    dbPath,
+    (err) => {
+      if (err) {
+        console.log(
+          "Database connection failed:",
+          err.message
+        );
+      } else {
+        console.log(
+          "Connected to database"
+        );
+      }
+    }
+  );
+
+/* ==========================
+   CONTACT TABLE
+========================== */
+
 db.run(`
 CREATE TABLE IF NOT EXISTS contacts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,4 +44,21 @@ CREATE TABLE IF NOT EXISTS contacts (
 )
 `);
 
-module.exports = db;
+/* ==========================
+   RESERVATIONS TABLE
+========================== */
+
+db.run(`
+CREATE TABLE IF NOT EXISTS reservations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  date TEXT NOT NULL,
+  time TEXT NOT NULL,
+  guests INTEGER NOT NULL
+)
+`);
+
+module.exports =
+  db;
