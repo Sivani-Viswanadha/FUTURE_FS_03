@@ -1,22 +1,34 @@
-// Mobile Menu Toggle
+// CONFIRM SCRIPT IS LOADED
+console.log("UPDATED SCRIPT LOADED");
+/* ==========================
+   MOBILE MENU TOGGLE
+========================== */
+
 const mobileMenu =
   document.getElementById(
     "mobile-menu"
   );
 
 const navUl =
-  document.querySelector("nav ul");
+  document.querySelector(
+    "nav ul"
+  );
 
 if (mobileMenu) {
   mobileMenu.addEventListener(
     "click",
     () => {
-      navUl.classList.toggle("show");
+      navUl.classList.toggle(
+        "show"
+      );
     }
   );
 }
 
-// Testimonial Slider
+/* ==========================
+   TESTIMONIAL SLIDER
+========================== */
+
 const testimonials =
   document.querySelectorAll(
     ".testimonial"
@@ -62,7 +74,8 @@ if (
 
       dot.addEventListener(
         "click",
-        () => goToSlide(index)
+        () =>
+          goToSlide(index)
       );
 
       dotsContainer.appendChild(
@@ -79,7 +92,9 @@ function goToSlide(index) {
         "active"
       );
 
-      if (dotsContainer) {
+      if (
+        dotsContainer
+      ) {
         const dots =
           dotsContainer.children;
 
@@ -100,11 +115,15 @@ function goToSlide(index) {
 
   if (
     dotsContainer &&
-    dotsContainer.children[index]
+    dotsContainer.children[
+      index
+    ]
   ) {
     dotsContainer.children[
       index
-    ].classList.add("active");
+    ].classList.add(
+      "active"
+    );
   }
 
   currentIndex = index;
@@ -161,7 +180,10 @@ if (
 
 function startAutoSlide() {
   autoSlideInterval =
-    setInterval(nextSlide, 5000);
+    setInterval(
+      nextSlide,
+      10000
+    );
 }
 
 function resetAutoSlide() {
@@ -178,9 +200,12 @@ if (
   startAutoSlide();
 }
 
-// API Base URL
+/* ==========================
+   API BASE URL
+========================== */
+
 const API_BASE =
-  "http://localhost:3000/api";
+  " https://future-fs-03-u211.onrender.com/api";
 
 /* ==========================
    RESERVATION FORM
@@ -202,49 +227,53 @@ if (reservationForm) {
     async (e) => {
       e.preventDefault();
 
-      const reservationData = {
-        name:
-          document.getElementById(
-            "resName"
-          ).value,
+      const reservationData =
+        {
+          name:
+            document.getElementById(
+              "resName"
+            ).value,
 
-        email:
-          document.getElementById(
-            "resEmail"
-          ).value,
+          email:
+            document.getElementById(
+              "resEmail"
+            ).value,
 
-        phone:
-          document.getElementById(
-            "resPhone"
-          ).value,
+          phone:
+            document.getElementById(
+              "resPhone"
+            ).value,
 
-        date:
-          document.getElementById(
-            "resDate"
-          ).value,
+          date:
+            document.getElementById(
+              "resDate"
+            ).value,
 
-        time:
-          document.getElementById(
-            "resTime"
-          ).value,
+          time:
+            document.getElementById(
+              "resTime"
+            ).value,
 
-        guests: parseInt(
-          document.getElementById(
-            "resGuests"
-          ).value
-        ),
-      };
+          guests:
+            parseInt(
+              document.getElementById(
+                "resGuests"
+              ).value
+            ),
+        };
 
       try {
         const response =
           await fetch(
             `${API_BASE}/reserve`,
             {
-              method: "POST",
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
+              method:
+                "POST",
+              headers:
+                {
+                  "Content-Type":
+                    "application/json",
+                },
               body:
                 JSON.stringify(
                   reservationData
@@ -258,7 +287,9 @@ if (reservationForm) {
         resMessage.style.display =
           "block";
 
-        if (response.ok) {
+        if (
+          response.ok
+        ) {
           resMessage.innerHTML =
             "✅ " +
             result.message;
@@ -267,6 +298,19 @@ if (reservationForm) {
             "green";
 
           reservationForm.reset();
+
+          clearTimeout(
+            window.resTimer
+          );
+
+          window.resTimer =
+            setTimeout(
+              () => {
+                resMessage.style.display =
+                  "none";
+              },
+              10000
+            );
         } else {
           resMessage.innerHTML =
             "❌ " +
@@ -285,7 +329,9 @@ if (reservationForm) {
         resMessage.style.color =
           "red";
 
-        console.error(error);
+        console.error(
+          error
+        );
       }
     }
   );
@@ -311,33 +357,36 @@ if (contactForm) {
     async (e) => {
       e.preventDefault();
 
-      const contactData = {
-        name:
-          document.getElementById(
-            "contactName"
-          ).value,
+      const contactData =
+        {
+          name:
+            document.getElementById(
+              "contactName"
+            ).value,
 
-        email:
-          document.getElementById(
-            "contactEmail"
-          ).value,
+          email:
+            document.getElementById(
+              "contactEmail"
+            ).value,
 
-        message:
-          document.getElementById(
-            "contactMessage"
-          ).value,
-      };
+          message:
+            document.getElementById(
+              "contactMessage"
+            ).value,
+        };
 
       try {
         const response =
           await fetch(
             `${API_BASE}/contact`,
             {
-              method: "POST",
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
+              method:
+                "POST",
+              headers:
+                {
+                  "Content-Type":
+                    "application/json",
+                },
               body:
                 JSON.stringify(
                   contactData
@@ -351,7 +400,9 @@ if (contactForm) {
         contactMessageDiv.style.display =
           "block";
 
-        if (response.ok) {
+        if (
+          response.ok
+        ) {
           contactMessageDiv.innerHTML =
             "✨ " +
             result.message;
@@ -360,6 +411,19 @@ if (contactForm) {
             "green";
 
           contactForm.reset();
+
+          clearTimeout(
+            window.contactTimer
+          );
+
+          window.contactTimer =
+            setTimeout(
+              () => {
+                contactMessageDiv.style.display =
+                  "none";
+              },
+              10000
+            );
         } else {
           contactMessageDiv.innerHTML =
             "❌ " +
@@ -378,7 +442,9 @@ if (contactForm) {
         contactMessageDiv.style.color =
           "red";
 
-        console.error(error);
+        console.error(
+          error
+        );
       }
     }
   );
